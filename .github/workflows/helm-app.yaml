@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/<your-username>/aks-helm-argocd-demo.git
+    repoURL: https://github.com/avadhutpatil22/aks-helm-argocd-demo-2025.git
     targetRevision: main
     path: helm-chart
     helm:
