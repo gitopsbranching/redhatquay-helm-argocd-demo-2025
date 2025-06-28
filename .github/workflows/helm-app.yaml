@@ -13,7 +13,7 @@ spec:
       valueFiles:
         - values.yaml
   destination:
-    server: https://kubernetes.default.svc
+    server: aks-helm-demo-rg-dns-q768r2j9.hcp.centralindia.azmk8s.io
     namespace: default
   syncPolicy:
     automated:
