@@ -37,7 +37,7 @@ jobs:
         docker build -t $QUAY_REPO:$IMAGE_TAG .
         docker push $QUAY_REPO:$IMAGE_TAG
 
-    # - name: Install Helm
+     # - name: Install Helm
     #   run: |
     #     curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
 
