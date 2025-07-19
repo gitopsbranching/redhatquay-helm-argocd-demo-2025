@@ -1,0 +1,48 @@
+name: Node.js App Deploy to AKS
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Azure Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Set AKS context
+      uses: azure/aks-set-context@v3
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+        cluster-name: CKA
+        resource-group: Avadhhoot2025
+
+    - name: Log in to Quay.io
+      run: echo "${{ secrets.Avadhoot@242422 }}" | docker login quay.io -u ${{ secrets.	avadhut22 }} --password-stdin
+
+    - name: Build and Push Docker image to Quay.io
+      env:
+        QUAY_REPO: quay.io/${{ secrets.	avadhut22 }}/node-app
+        IMAGE_TAG: latest
+      run: |
+        docker build -t $QUAY_REPO:$IMAGE_TAG .
+        docker push $QUAY_REPO:$IMAGE_TAG
+
+    # - name: Install Helm
+    #   run: |
+    #     curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+
+    # - name: Deploy Helm chart
+    #   run: |
+    #     helm upgrade --install nodeapp ./node-app \
+    #       --set image.repository=quay.io/${{ secrets.	avadhut22 }}/node-app \
+    #       --set image.tag=latest
