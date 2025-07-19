@@ -35,11 +35,11 @@ jobs:
         resource-group: Avadhhoot2025
 
     - name: Log in to Quay.io
-      run: echo ""a89XKV/w16tf/AQ/Em8gusoxr181Fz2yFpR6/LQGBbdW9ycKOuoFayXQCU9c4RcM"" | docker login quay.io -u avadhut22 --password-stdin
+      run: echo "${{ secrets.QUAY_PASSWORD }}" | docker login quay.io -u ${{ secrets.QUAY_USERNAME }} --password-stdin
 
     - name: Build and Push Docker image to Quay.io
       env:
-        QUAY_REPO: quay.io/avadhut22/node-app
+        QUAY_REPO: quay.io/${{ secrets.QUAY_USERNAME }}/node-app
       run: |
         docker build -t $QUAY_REPO:$IMAGE_TAG .
         docker push $QUAY_REPO:$IMAGE_TAG
@@ -49,11 +49,25 @@ jobs:
         sed -i "s|repository:.*|repository: quay.io/${{ secrets.QUAY_USERNAME }}/node-app|" ./node-app/values.yaml
         sed -i "s|tag:.*|tag: '$IMAGE_TAG'|" ./node-app/values.yaml
 
-    - name: Commit updated values.yaml
-      env:
-          GH_PAT: ${{ secrets.GH_PAT }}
+    - name: Configure Git identity
       run: |
-          git add ./node-app/values.yaml
-          git commit -m "Update image tag to $IMAGE_TAG" || echo "No changes to commit"
+        git config --global user.name "avadhutpatil22"
+        git config --global user.email "patilavadhut907@gmail.com"
+
+    - name: Commit and push updated values.yaml
+      env:
+        GH_PAT: ${{ secrets.GH_PAT }}
+      run: |
+        git add ./node-app/values.yaml
+
+        # Only commit if there are changes
+        if ! git diff-index --quiet HEAD; then
+          git commit -m "Update image tag to $IMAGE_TAG"
+
+          # Set remote with GitHub PAT
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/avadhutpatil22/redhatquay-helm-argocd-demo-2025.git
+
           git push origin HEAD:main
+        else
+          echo "No changes to commit."
+        fi
