@@ -14,6 +14,14 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v3
 
+    - name: Set image tag based on commit
+      id: vars
+      run: |
+        COMMIT_SHA=$(echo "${{ github.sha }}" | cut -c1-7)
+        IMAGE_TAG=nodeapp-${COMMIT_SHA}
+        echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
+        echo "tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
+
     - name: Azure Login
       uses: azure/login@v1
       with:
@@ -27,22 +35,24 @@ jobs:
         resource-group: Avadhhoot2025
 
     - name: Log in to Quay.io
-      run: echo "${{ secrets.a89XKV/w16tf/AQ/Em8gusoxr181Fz2yFpR6/LQGBbdW9ycKOuoFayXQCU9c4RcM }}" | docker login quay.io -u ${{ secrets.avadhut22 }} --password-stdin
+      run: echo ""a89XKV/w16tf/AQ/Em8gusoxr181Fz2yFpR6/LQGBbdW9ycKOuoFayXQCU9c4RcM"" | docker login quay.io -u avadhut22 --password-stdin
 
     - name: Build and Push Docker image to Quay.io
       env:
-        QUAY_REPO: quay.io/${{ secrets.avadhut22 }}/node-app
-        IMAGE_TAG: latest
+        QUAY_REPO: quay.io/avadhut22/node-app
       run: |
         docker build -t $QUAY_REPO:$IMAGE_TAG .
         docker push $QUAY_REPO:$IMAGE_TAG
 
-     # - name: Install Helm
-    #   run: |
-    #     curl https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+    - name: Update Helm values.yaml with new tag
+      run: |
+        sed -i "s|repository:.*|repository: quay.io/${{ secrets.QUAY_USERNAME }}/node-app|" ./node-app/values.yaml
+        sed -i "s|tag:.*|tag: '$IMAGE_TAG'|" ./node-app/values.yaml
 
-    # - name: Deploy Helm chart
-    #   run: |
-    #     helm upgrade --install nodeapp ./node-app \
-    #       --set image.repository=quay.io/${{ secrets.	avadhut22 }}/node-app \
-    #       --set image.tag=latest
+    - name: Commit updated values.yaml
+      run: |
+        git config --global user.name "GitHub Actions"
+        git config --global user.email "actions@github.com"
+        git add ./node-app/values.yaml
+        git commit -m "Update image tag to $IMAGE_TAG"
+        git push
