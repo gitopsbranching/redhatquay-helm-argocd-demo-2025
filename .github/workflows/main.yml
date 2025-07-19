@@ -51,8 +51,8 @@ jobs:
 
     - name: Commit updated values.yaml
       run: |
-        git config --global user.name "GitHub Actions"
-        git config --global user.email "actions@github.com"
+        git config --global user.name "avadhutpatil22"
+        git config --global user.email "patilavadhut907@gmail.com"
         git add ./node-app/values.yaml
         git commit -m "Update image tag to $IMAGE_TAG"
         git push
