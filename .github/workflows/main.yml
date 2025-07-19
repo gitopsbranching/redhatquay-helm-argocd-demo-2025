@@ -50,6 +50,8 @@ jobs:
         sed -i "s|tag:.*|tag: '$IMAGE_TAG'|" ./node-app/values.yaml
 
     - name: Commit updated values.yaml
+      env:
+          GH_PAT: ${{ secrets.GH_PAT }}
       run: |
         git config --global user.name "avadhutpatil22"
         git config --global user.email "patilavadhut907@gmail.com"
