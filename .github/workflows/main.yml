@@ -27,7 +27,7 @@ jobs:
         resource-group: Avadhhoot2025
 
     - name: Log in to Quay.io
-      run: echo "${{ secrets.Avadhoot@242422 }}" | docker login quay.io -u ${{ secrets.avadhut22 }} --password-stdin
+      run: echo "${{ secrets.a89XKV/w16tf/AQ/Em8gusoxr181Fz2yFpR6/LQGBbdW9ycKOuoFayXQCU9c4RcM }}" | docker login quay.io -u ${{ secrets.avadhut22 }} --password-stdin
 
     - name: Build and Push Docker image to Quay.io
       env:
