@@ -53,8 +53,7 @@ jobs:
       env:
           GH_PAT: ${{ secrets.GH_PAT }}
       run: |
-        git config --global user.name "avadhutpatil22"
-        git config --global user.email "patilavadhut907@gmail.com"
-        git add ./node-app/values.yaml
-        git commit -m "Update image tag to $IMAGE_TAG"
-        git push
+          git add ./node-app/values.yaml
+          git commit -m "Update image tag to $IMAGE_TAG" || echo "No changes to commit"
+          git remote set-url origin https://x-access-token:${GH_PAT}@github.com/avadhutpatil22/redhatquay-helm-argocd-demo-2025.git
+          git push origin HEAD:main
