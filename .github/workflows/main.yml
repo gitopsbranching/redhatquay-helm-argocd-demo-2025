@@ -27,11 +27,11 @@ jobs:
         resource-group: Avadhhoot2025
 
     - name: Log in to Quay.io
-      run: echo "${{ secrets.Avadhoot@242422 }}" | docker login quay.io -u ${{ secrets.	avadhut22 }} --password-stdin
+      run: echo "${{ secrets.Avadhoot@242422 }}" | docker login quay.io -u ${{ secrets.avadhut22 }} --password-stdin
 
     - name: Build and Push Docker image to Quay.io
       env:
-        QUAY_REPO: quay.io/${{ secrets.	avadhut22 }}/node-app
+        QUAY_REPO: quay.io/${{ secrets.avadhut22 }}/node-app
         IMAGE_TAG: latest
       run: |
         docker build -t $QUAY_REPO:$IMAGE_TAG .
