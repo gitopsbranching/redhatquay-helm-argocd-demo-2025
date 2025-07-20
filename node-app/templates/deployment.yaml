@@ -20,8 +20,10 @@ spec:
       labels:
         {{- include "node-app-chart.selectorLabels" . | nindent 8 }}
     spec:
+      {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
-        {{- toYaml .Values.imagePullSecrets | nindent 4 }}
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
       serviceAccountName: {{ include "node-app-chart.serviceAccountName" . }}
       securityContext:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
@@ -29,6 +31,8 @@ spec:
         - name: {{ .Chart.Name }}
           image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
           imagePullPolicy: {{ .Values.image.pullPolicy }}
+          securityContext:
+            {{- toYaml .Values.securityContext | nindent 12 }}
           ports:
             - name: http
               containerPort: {{ .Values.service.targetPort }}
