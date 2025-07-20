@@ -4,7 +4,7 @@
 
 replicaCount: 1
 
-
+nameOverride: node-app
 image:
   repository: quay.io/avadhut22/node-app
   pullPolicy: IfNotPresent
