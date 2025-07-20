@@ -8,7 +8,7 @@ nameOverride: node-app
 image:
   repository: quay.io/avadhut22/node-app
   pullPolicy: IfNotPresent
-  tag: 'nodeapp-2d1c3fa'
+  tag: 'nodeapp-c603c8d'
 
 imagePullSecrets:
   - name: quay-pull-secret
