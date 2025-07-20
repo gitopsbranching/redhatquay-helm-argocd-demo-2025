@@ -11,7 +11,7 @@ image:
   tag: 'nodeapp-c603c8d'
 
 imagePullSecrets:
-  - name: quay-pull-secret
+  - name:  avadhut22+avadhut22
 
 serviceAccount:
   # Specifies whether a service account should be created
