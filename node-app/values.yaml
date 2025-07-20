@@ -12,7 +12,7 @@ image:
   tag: 'nodeapp-a0f7619'
 
 imagePullSecrets:
-  - name: regcred  # Replace with your actual image pull secret name
+  - name: quay-pull-secret  # Replace with your actual image pull secret name
 
 serviceAccount:
   create: true
