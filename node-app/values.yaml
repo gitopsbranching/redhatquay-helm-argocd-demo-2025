@@ -9,7 +9,7 @@ nameOverride: node-app
 image:
   repository: quay.io/avadhut22/node-app
   pullPolicy: IfNotPresent
-  tag: 'nodeapp-db60aea'
+  tag: 'nodeapp-a0f7619'
 
 imagePullSecrets:
   - name: regcred  # Replace with your actual image pull secret name
