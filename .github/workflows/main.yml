@@ -22,17 +22,17 @@ jobs:
         echo "IMAGE_TAG=$IMAGE_TAG" >> $GITHUB_ENV
         echo "tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
-    - name: Azure Login
-      uses: azure/login@v1
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
+    # - name: Azure Login
+    #   uses: azure/login@v1
+    #   with:
+    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
 
-    - name: Set AKS context
-      uses: azure/aks-set-context@v3
-      with:
-        creds: ${{ secrets.AZURE_CREDENTIALS }}
-        cluster-name: CKA
-        resource-group: Avadhhoot2025
+    # - name: Set AKS context
+    #   uses: azure/aks-set-context@v3
+    #   with:
+    #     creds: ${{ secrets.AZURE_CREDENTIALS }}
+    #     cluster-name: CKA
+    #     resource-group: Avadhhoot2025
 
     - name: Log in to Quay.io
       run: echo "a89XKV/w16tf/AQ/Em8gusoxr181Fz2yFpR6/LQGBbdW9ycKOuoFayXQCU9c4RcM" | docker login quay.io -u avadhut22 --password-stdin
