@@ -10,7 +10,7 @@ image:
   tag: 'nodeapp-10d7635'
 
 imagePullSecrets:
-  - name: avadhoot
+  - name: "avadhoot"
 
 serviceAccount:
   # Specifies whether a service account should be created
