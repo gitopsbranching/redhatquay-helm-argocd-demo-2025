@@ -58,7 +58,7 @@ jobs:
           # Set remote with GitHub PAT
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/avadhutpatil22/redhatquay-helm-argocd-demo-2025.git
 
-          git push origin HEAD:HEAD
+          git push origin HEAD:main
         else
           echo "No changes to commit."
         fi
