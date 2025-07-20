@@ -52,7 +52,7 @@ jobs:
         git add ./node-app/values.yaml
 
         # Only commit if there are changes
-        if ! git diff-index --quiet HEAD; then
+        if ! git diff-index --quiet main; then
           git commit -m "Update image tag to $IMAGE_TAG"
 
           # Set remote with GitHub PAT
