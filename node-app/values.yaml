@@ -10,7 +10,7 @@ image:
   tag: 'nodeapp-a127471'
 
 imagePullSecrets:
-  - name: quay-secret
+  - name: quay-pull-secret
 
 serviceAccount:
   # Specifies whether a service account should be created
