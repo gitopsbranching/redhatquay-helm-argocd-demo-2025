@@ -10,7 +10,7 @@ image:
   tag: 'nodeapp-7545af4'
 
 imagePullSecrets:
-  - name: quay-pull-secret
+  - name: avadhoot
 
 serviceAccount:
   # Specifies whether a service account should be created
