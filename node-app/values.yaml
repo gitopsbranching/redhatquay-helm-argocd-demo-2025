@@ -8,7 +8,7 @@ image:
   repository: quay.io/avadhut22/node-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: 'nodeapp-0cc1360'
+  tag: 'nodeapp-cea09e6'
 
 imagePullSecrets: []
 nameOverride: ""
