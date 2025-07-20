@@ -7,12 +7,10 @@ replicaCount: 1
 image:
   repository: quay.io/avadhut22/node-app
   pullPolicy: IfNotPresent
-  # Overrides the image tag whose default is the chart appVersion.
-  tag: 'nodeapp-d19e693'
+  tag: 'nodeapp-cea09e6'
 
-imagePullSecrets: []
-nameOverride: ""
-fullnameOverride: ""
+imagePullSecrets:
+  - name: quay-secret
 
 serviceAccount:
   # Specifies whether a service account should be created
