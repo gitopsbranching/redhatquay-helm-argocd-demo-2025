@@ -5,10 +5,10 @@
 replicaCount: 1
 
 image:
-  repository: avadhoot.azurecr.io 
+  repository: quay.io/avadhut22/node-app
   pullPolicy: IfNotPresent
   # Overrides the image tag whose default is the chart appVersion.
-  tag: "latest"
+  tag: 'nodeapp-0cc1360'
 
 imagePullSecrets: []
 nameOverride: ""
