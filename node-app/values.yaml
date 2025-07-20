@@ -10,9 +10,6 @@ image:
   pullPolicy: IfNotPresent
   tag: 'nodeapp-43bdd7a'
 
-imagePullSecrets:
-  - name:  avadhut22+avadhut22
-
 serviceAccount:
   # Specifies whether a service account should be created
   create: true
