@@ -3,28 +3,22 @@ kind: Deployment
 metadata:
   name: {{ include "node-app-chart.fullname" . }}
   labels:
-    app.kubernetes.io/name: {{ include "node-app-chart.name" . | quote }}
-    app.kubernetes.io/instance: {{ .Release.Name | quote }}
-    app.kubernetes.io/version: {{ .Chart.AppVersion | quote }}
-    app.kubernetes.io/component: "app"
-    app.kubernetes.io/part-of: "node-app"
+    {{- include "node-app-chart.labels" . | nindent 4 }}
 spec:
   {{- if not .Values.autoscaling.enabled }}
   replicas: {{ .Values.replicaCount }}
   {{- end }}
   selector:
     matchLabels:
-      app.kubernetes.io/name: {{ include "node-app-chart.name" . | quote }}
-      app.kubernetes.io/instance: {{ .Release.Name | quote }}
+      {{- include "node-app-chart.selectorLabels" . | nindent 6 }}
   template:
     metadata:
-      labels:
-        app.kubernetes.io/name: {{ include "node-app-chart.name" . | quote }}
-        app.kubernetes.io/instance: {{ .Release.Name | quote }}
       {{- with .Values.podAnnotations }}
       annotations:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      labels:
+        {{- include "node-app-chart.selectorLabels" . | nindent 8 }}
     spec:
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
@@ -35,13 +29,13 @@ spec:
         {{- toYaml .Values.podSecurityContext | nindent 8 }}
       containers:
         - name: {{ .Chart.Name }}
-          image: "{{ .Values.image.repository }}:{{ .Values.image.tag }}"
-          imagePullPolicy: {{ .Values.image.pullPolicy }}
           securityContext:
             {{- toYaml .Values.securityContext | nindent 12 }}
+          image: "{{ .Values.image.repository }}:{{ .Values.image.tag | default .Chart.AppVersion }}"
+          imagePullPolicy: {{ .Values.image.pullPolicy }}
           ports:
             - name: http
-              containerPort: {{ .Values.service.targetPort }}
+              containerPort:  {{ .Values.service.targetPort }}
               protocol: TCP
           livenessProbe:
             httpGet:
