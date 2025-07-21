@@ -1,4 +1,4 @@
-name: Node.js App Deploy to AKS #commint new tag
+name: Node.js App Deploy to AKS 
 
 on:
   push:
