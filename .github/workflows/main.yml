@@ -1,4 +1,4 @@
-name: Node.js App Deploy to AKS 
+name: Node.js App Deploy to AKS
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 permissions:
-  contents: write   # This is required to allow push via GITHUB_TOKEN
+  contents: write
 
 jobs:
   deploy:
@@ -26,7 +26,7 @@ jobs:
         echo "tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Log in to Quay.io
-      run: echo "a89XKV/w16tf/AQ/Em8gusoxr181Fz2yFpR6/LQGBbdW9ycKOuoFayXQCU9c4RcM" | docker login quay.io -u avadhut22 --password-stdin
+      run: echo "${{ secrets.QUAY_PASSWORD }}" | docker login quay.io -u avadhut22 --password-stdin
 
     - name: Build and Push Docker image to Quay.io
       env:
@@ -45,20 +45,30 @@ jobs:
         git config --global user.name "avadhutpatil22"
         git config --global user.email "patilavadhut907@gmail.com"
 
-    - name: Commit and push updated values.yaml
+    - name: Create and push branch with updated values.yaml
       env:
         GH_PAT: ${{ secrets.GH_PAT }}
       run: |
+        BRANCH_NAME="update-image-tag-${IMAGE_TAG}"
+        git checkout -b $BRANCH_NAME
         git add ./node-app/values.yaml
-
-        # Only commit if there are changes
-        if ! git diff-index --quiet main; then
+        if ! git diff --quiet; then
           git commit -m "Update image tag to $IMAGE_TAG"
-
-          # Set remote with GitHub PAT
           git remote set-url origin https://x-access-token:${GH_PAT}@github.com/avadhutpatil22/redhatquay-helm-argocd-demo-2025.git
-
-          git push origin main
+          git push origin $BRANCH_NAME
         else
           echo "No changes to commit."
         fi
+
+    - name: Create Pull Request
+      uses: peter-evans/create-pull-request@v5
+      with:
+        token: ${{ secrets.GH_PAT }}
+        commit-message: "Update image tag to ${{ env.IMAGE_TAG }}"
+        branch: update-image-tag-${{ env.IMAGE_TAG }}
+        base: main
+        title: "Update image tag to ${{ env.IMAGE_TAG }}"
+        body: |
+          This PR updates the Helm chart values.yaml with the new image tag `${{ env.IMAGE_TAG }}`.
+        labels: automated-pr
+        draft: false
