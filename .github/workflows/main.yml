@@ -60,10 +60,10 @@ jobs:
           echo "No changes to commit."
         fi
 
-    - name: Create Pull Request
+    - name: Commit changes and create PR
       uses: peter-evans/create-pull-request@v5
       with:
-        # token: ${{ secrets.GH_PAT }}
+        token: ${{ secrets.GH_PAT }}
         commit-message: "Update image tag to ${{ env.IMAGE_TAG }}"
         branch: update-image-tag-${{ env.IMAGE_TAG }}
         base: main
