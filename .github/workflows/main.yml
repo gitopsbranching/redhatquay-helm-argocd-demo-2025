@@ -26,7 +26,7 @@ jobs:
         echo "tag=$IMAGE_TAG" >> $GITHUB_OUTPUT
 
     - name: Log in to Quay.io
-      run: echo "${{ secrets.QUAY_PASSWORD }}" | docker login quay.io -u avadhut22 --password-stdin
+      run: echo "a89XKV/w16tf/AQ/Em8gusoxr181Fz2yFpR6/LQGBbdW9ycKOuoFayXQCU9c4RcM" | docker login quay.io -u avadhut22 --password-stdin
 
     - name: Build and Push Docker image to Quay.io
       env:
