@@ -37,10 +37,9 @@ jobs:
         docker build -t $QUAY_REPO:$IMAGE_TAG .
         docker push $QUAY_REPO:$IMAGE_TAG
 
-    - name: Update Helm values.yaml with new tag
+    - name: Update values.yaml
       run: |
-        sed -i "s|repository:.*|repository: quay.io/avadhut22/node-app|" ./node-app/values.yaml
-        sed -i "s|tag:.*|tag: '$IMAGE_TAG'|" ./node-app/values.yaml
+        sed -i "s|tag: .*|tag: $IMAGE_TAG|g" node-app/values.yaml
 
     - name: Configure Git identity
       run: |
