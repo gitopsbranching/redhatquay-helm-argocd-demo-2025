@@ -46,9 +46,10 @@ jobs:
         with:
           token: ${{ secrets.GH_TOKEN }}
           commit-message: "Update image tag to ${{ env.IMAGE_TAG }}"
-          branch: update-image-tag-${{ env.IMAGE_TAG }}
+          branch: update-image-tag   # ✅ fixed branch name
           base: main
-          title: "Update image tag to ${{ env.IMAGE_TAG }}"
+          title: "Update Helm image tag"
           body: |
             This PR updates the Helm chart values.yaml with the new image tag `${{ env.IMAGE_TAG }}`.
           labels: automated-pr
+          delete-branch: true   # ✅ cleans up after merge
