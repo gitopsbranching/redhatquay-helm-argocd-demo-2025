@@ -7,7 +7,7 @@ replicaCount: 1
 image:
   repository: quay.io/avadhut22/node-app
   pullPolicy: IfNotPresent
-  tag: "nodeapp-89dc22e"
+  tag: "nodeapp-0aaa18c"
 
 imagePullSecrets:
   - name: avadhoot
